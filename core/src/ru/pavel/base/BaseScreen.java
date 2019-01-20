@@ -21,7 +21,7 @@ public class BaseScreen implements Screen, InputProcessor {
     private Matrix4 worldToGl;
     private Matrix3 screenToWorlds;
 
-    private Vector2 touch;
+    protected Vector2 touch;
 
     @Override
     public void show() {
