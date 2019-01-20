@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import ru.pavel.base.BaseScreen;
 
 public class MenuScreen extends BaseScreen {
-    SpriteBatch batch;
+
     // 113 x 97
     Texture img;
     Texture background;
@@ -21,15 +21,16 @@ public class MenuScreen extends BaseScreen {
 
     //
     int i = 0;
-    private static final float V_LEN = 1f;
+    private static final float V_LEN = 0.0001f;
+    private final float SOLDIER_WIDTH = 0.2f;
+    private final float SOLDIER_HIGHT = 0.2f * 0.858f;
 
     @Override
     public void show() {
         super.show();
-        batch = new SpriteBatch();
         background = new Texture("grass.jpg");
         img = new Texture("move/survivor-move_handgun_0.png");
-        pos = new Vector2((Gdx.graphics.getWidth() / 2) - (113 / 2) ,(Gdx.graphics.getHeight() / 2) - (97 / 2));
+        pos = new Vector2(0,0);
         v = new Vector2(0 ,0);
         touch = new Vector2(0,0);
         buf = new Vector2(0,0);
@@ -41,17 +42,18 @@ public class MenuScreen extends BaseScreen {
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        batch.draw(background, 0,0);
+        batch.draw(background, - 0.5f ,- 0.5f,1, 1);
         buf.set(touch);
 
         if(buf.sub(pos).len() > V_LEN) {
             pos.add(v);
+
         } else {
             pos.set(touch);
         }
 
-        //moving solder
-        batch.draw(new Texture("move/survivor-move_handgun_" + (i + 1) + ".png"), pos.x, pos.y);
+        //moving
+        batch.draw(new Texture("move/survivor-move_handgun_" + (i + 1) + ".png"), - (SOLDIER_WIDTH / 2), - (SOLDIER_HIGHT / 2),SOLDIER_WIDTH,SOLDIER_HIGHT);
         if (i < 18) {
             i++;
         } else  {
@@ -63,7 +65,6 @@ public class MenuScreen extends BaseScreen {
 
     @Override
     public void dispose() {
-        batch.dispose();
         background.dispose();
         img.dispose();
         super.dispose();
@@ -71,8 +72,6 @@ public class MenuScreen extends BaseScreen {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        touch.set(screenX, Gdx.graphics.getHeight() - screenY);
-        v.set(touch.cpy().sub(pos).setLength(V_LEN));
         return super.touchDown(screenX, screenY, pointer, button);
     }
 }
