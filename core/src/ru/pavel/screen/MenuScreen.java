@@ -12,6 +12,7 @@ public class MenuScreen extends BaseScreen {
     // 113 x 97
     Texture img;
     Texture background;
+    Texture rifle;
 
     Vector2 pos;
     Vector2 v;
@@ -28,6 +29,7 @@ public class MenuScreen extends BaseScreen {
         super.show();
         background = new Texture("grass.jpg");
         img = new Texture("move/survivor-move_handgun_0.png");
+        rifle = new Texture("apocalypse/rifle.png");
         pos = new Vector2(0,0);
         v = new Vector2(0 ,0);
         buf = new Vector2(0,0);
@@ -40,23 +42,24 @@ public class MenuScreen extends BaseScreen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         batch.draw(background, - 0.5f ,- 0.5f,1, 1);
+        batch.draw(rifle,0.8f,0.8f, 0.9f, 0.9f);
 
         buf.set(touch);
 
-        batch.draw(new Texture("move/survivor-move_handgun_" + (pace + 1) + ".png"), pos.x, pos.y, SURVIVOR_WIDTH, SURVIVOR_HIGHT);
+        batch.draw(new Texture("move/survivor-move_handgun_" + (pace ) + ".png"), pos.x, pos.y, SURVIVOR_WIDTH, SURVIVOR_HIGHT);
 
         if(buf.sub(pos).len() > V_LEN) {
             pos.add(v);
+            //walk
+            if (pace < 18) {
+                pace++;
+            } else  {
+                pace = 0;
+            }
         } else {
             pos.set(touch);
         }
 
-        //pacing
-        if (pace < 18) {
-            pace++;
-        } else  {
-            pace = 0;
-        }
         batch.end();
     }
 
