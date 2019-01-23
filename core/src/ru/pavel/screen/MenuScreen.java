@@ -28,7 +28,7 @@ public class MenuScreen extends BaseScreen {
     public void show() {
         super.show();
         background = new Texture("grass.jpg");
-        img = new Texture("move/survivor-move_handgun_0.png");
+        //img = new Texture("move/survivor-move_handgun_0.png");
         rifle = new Texture("apocalypse/rifle.png");
         pos = new Vector2(0,0);
         v = new Vector2(0 ,0);
@@ -41,12 +41,12 @@ public class MenuScreen extends BaseScreen {
         Gdx.gl.glClearColor(0, 0.2f, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        batch.draw(background, - 0.5f ,- 0.5f,1, 1);
-        batch.draw(rifle,0.8f,0.8f, 0.9f, 0.9f);
+        batch.draw(background, - 1f ,- 0.5f,2, 1);
+        batch.draw(rifle,0.5f,0.5f, 0.5f, 0.5f);
 
         buf.set(touch);
 
-        batch.draw(new Texture("move/survivor-move_handgun_" + (pace ) + ".png"), pos.x, pos.y, SURVIVOR_WIDTH, SURVIVOR_HIGHT);
+        batch.draw(new Texture("move/survivor-move_handgun_" + pace + ".png"), pos.x - (SURVIVOR_WIDTH / 2), pos.y - (SURVIVOR_HIGHT / 2), SURVIVOR_WIDTH, SURVIVOR_HIGHT);
 
         if(buf.sub(pos).len() > V_LEN) {
             pos.add(v);
@@ -67,11 +67,13 @@ public class MenuScreen extends BaseScreen {
     public void dispose() {
         background.dispose();
         img.dispose();
+        rifle.dispose();
         super.dispose();
     }
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        super.touchDown(screenX,screenY,pointer,button);
         v.set(touch.cpy().sub(pos).setLength(V_LEN));
         return super.touchDown(screenX, screenY, pointer, button);
     }
