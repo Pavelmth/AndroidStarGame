@@ -28,7 +28,6 @@ public class MenuScreen extends BaseScreen {
     public void show() {
         super.show();
         background = new Texture("grass.jpg");
-        //img = new Texture("move/survivor-move_handgun_0.png");
         rifle = new Texture("apocalypse/rifle.png");
         pos = new Vector2(0,0);
         v = new Vector2(0 ,0);
