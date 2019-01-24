@@ -11,7 +11,7 @@ import com.badlogic.gdx.math.Vector2;
 import ru.pavel.math.MatrixUtils;
 import ru.pavel.math.Rect;
 
-public class BaseScreen implements Screen, InputProcessor {
+public abstract class BaseScreen implements Screen, InputProcessor {
     protected SpriteBatch batch;
 
     private Rect screenBounds; // draw area border by pixel
@@ -55,7 +55,13 @@ public class BaseScreen implements Screen, InputProcessor {
         MatrixUtils.calcTransitionMatrix(worldToGl, worldBounds, glBounds);
         batch.setProjectionMatrix(worldToGl);
         MatrixUtils.calcTransitionMatrix(screenToWorlds, screenBounds, worldBounds);
+        resize(worldBounds);
     }
+
+    public void resize(Rect worldBounds) {
+
+    }
+
 
     @Override
     public void pause() {
