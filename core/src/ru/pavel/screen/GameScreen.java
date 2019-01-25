@@ -15,7 +15,7 @@ import ru.pavel.sprite.Star;
 import ru.pavel.sprite.menu.ExitButton;
 import ru.pavel.sprite.menu.PlayButton;
 
-public class MenuScreen extends BaseScreen {
+public class GameScreen extends BaseScreen {
 
     private TextureAtlas atlas;
     private Texture bg;
@@ -25,9 +25,8 @@ public class MenuScreen extends BaseScreen {
     private ExitButton exitButton;
     StarGame starGame;
 
-    public MenuScreen(StarGame starGame) {
+    public GameScreen() {
         super();
-        this.starGame = starGame;
     }
 
     @Override
@@ -40,8 +39,6 @@ public class MenuScreen extends BaseScreen {
         for (int i = 0; i < star.length; i++) {
             star[i] = new Star(atlas);
         }
-        playButton = new PlayButton(atlas, starGame);
-        exitButton = new ExitButton(atlas, this);
     }
 
     @Override
@@ -65,8 +62,6 @@ public class MenuScreen extends BaseScreen {
         for (int i = 0; i < star.length; i++) {
             star[i].draw(batch);
         }
-        playButton.draw(batch);
-        exitButton.draw(batch);
         batch.end();
     }
 
@@ -76,8 +71,6 @@ public class MenuScreen extends BaseScreen {
         for (int i = 0; i < star.length; i++) {
             star[i].resize(worldBounds);
         }
-        playButton.resize(worldBounds);
-        exitButton.resize(worldBounds);
     }
 
     @Override
@@ -85,14 +78,5 @@ public class MenuScreen extends BaseScreen {
         bg.dispose();
         atlas.dispose();
         super.dispose();
-    }
-
-    @Override
-    public boolean touchDown(Vector2 touch, int pointer) {
-        playButton.touchDown(touch, pointer);
-        playButton.touchUp(touch, pointer);
-        exitButton.touchDown(touch, pointer);
-        exitButton.touchDown(touch, pointer);
-        return super.touchDown(touch, pointer);
     }
 }

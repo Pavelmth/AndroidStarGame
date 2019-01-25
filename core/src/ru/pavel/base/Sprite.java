@@ -7,8 +7,8 @@ import com.badlogic.gdx.math.Vector2;
 import ru.pavel.math.Rect;
 
 public class Sprite extends Rect {
-    private float angele;
-    private float scale = 1f;
+    protected float angele;
+    protected float scale = 1f;
     protected TextureRegion[] regions;
     protected int frame;
 
