@@ -7,15 +7,12 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
-import ru.pavel.StarGame;
 import ru.pavel.base.BaseScreen;
 import ru.pavel.math.Rect;
 import ru.pavel.pool.BulletPool;
 import ru.pavel.sprite.Background;
 import ru.pavel.sprite.Star;
 import ru.pavel.sprite.game.MainShip;
-import ru.pavel.sprite.menu.ExitButton;
-import ru.pavel.sprite.menu.PlayButton;
 
 public class GameScreen extends BaseScreen {
 
@@ -106,11 +103,13 @@ public class GameScreen extends BaseScreen {
 
     @Override
     public boolean touchDown(Vector2 touch, int pointer) {
+        mainShip.touchDown(touch, pointer);
         return super.touchDown(touch, pointer);
     }
 
     @Override
     public boolean touchUp(Vector2 touch, int pointer) {
+        mainShip.touchUp(touch, pointer);
         return super.touchUp(touch, pointer);
     }
 }

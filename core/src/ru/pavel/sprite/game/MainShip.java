@@ -1,6 +1,8 @@
 package ru.pavel.sprite.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -13,8 +15,8 @@ public class MainShip extends Sprite {
 
     private Rect worldBounds;
 
-    private final Vector2 v0 = new Vector2(0.5f, 0);
-    private Vector2 v = new Vector2();
+    private final Vector2 speed0 = new Vector2(0.5f, 0);
+    private Vector2 speed = new Vector2();
 
     private boolean isPressedLeft;
     private boolean isPressedRight;
@@ -22,6 +24,8 @@ public class MainShip extends Sprite {
     private BulletPool bulletPool;
 
     private TextureRegion bulletRegion;
+
+    Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/2576.mp3"));
 
     public MainShip(TextureAtlas atlas, BulletPool bulletPool) {
         super(atlas.findRegion("main_ship"), 1, 2, 2);
@@ -40,7 +44,7 @@ public class MainShip extends Sprite {
     @Override
     public void update(float delta) {
         super.update(delta);
-        pos.mulAdd(v, delta);
+        pos.mulAdd(speed, delta);
     }
 
     public boolean keyDown(int keycode) {
@@ -57,6 +61,7 @@ public class MainShip extends Sprite {
                 break;
             case Input.Keys.UP:
                 shoot();
+                sound.play(1.0f); // воспроизводит новый звук
                 break;
         }
         return false;
@@ -86,16 +91,33 @@ public class MainShip extends Sprite {
         return false;
     }
 
+    @Override
+    public boolean touchDown(Vector2 touch, int button) {
+        if (touch.x > 0) {
+            moveRight();
+        }
+        else if (touch.x < 0) {
+            moveLeft();
+        }
+        return super.touchDown(touch, button);
+    }
+
+    @Override
+    public boolean touchUp(Vector2 touch, int button) {
+        stop();
+        return super.touchUp(touch, button);
+    }
+
     private void moveRight() {
-        v.set(v0);
+        speed.set(speed0);
     }
 
     private void moveLeft() {
-        v.set(v0).rotate(180);
+        speed.set(speed0).rotate(180);
     }
 
     private void stop() {
-        v.setZero();
+        speed.setZero();
     }
 
     private void shoot() {

@@ -2,6 +2,7 @@ package ru.pavel.screen;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -26,6 +27,7 @@ public class MenuScreen extends BaseScreen {
     private ExitButton exitButton;
     StarGame starGame;
     Game game;
+    Music music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Space_music.mp3"));
 
     public MenuScreen(Game game) {
         this.game = game;
@@ -43,6 +45,15 @@ public class MenuScreen extends BaseScreen {
         }
         playButton = new PlayButton(atlas, game);
         exitButton = new ExitButton(atlas);
+
+        music.setVolume(0.3f);                 // устанавливает громкость на половину максимального объема
+        music.setLooping(true);                // повторное воспроизведение, пока не будет вызван music.stop()
+//        music.stop();                          // останавливает воспроизведение
+//        music.pause();                         // приостанавливает воспроизведение
+        music.play();                          // возобновляет воспроизведение
+//        boolean isPlaying = music.isPlaying(); // проверка воспроизводится ли музыка
+//        boolean isLooping = music.isLooping(); // проверка установлено ли повторение
+//        float position = music.getPosition();  // возвращает позицию воспроизведения в секундах
     }
 
     @Override
@@ -85,6 +96,7 @@ public class MenuScreen extends BaseScreen {
     public void dispose() {
         bg.dispose();
         atlas.dispose();
+        music.stop();                          // останавливает воспроизведение
         super.dispose();
     }
 
