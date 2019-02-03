@@ -10,8 +10,10 @@ import com.badlogic.gdx.math.Vector2;
 import ru.pavel.base.BaseScreen;
 import ru.pavel.math.Rect;
 import ru.pavel.pool.BulletPool;
+import ru.pavel.pool.ExplosionPool;
 import ru.pavel.sprite.Background;
 import ru.pavel.sprite.Star;
+import ru.pavel.sprite.game.Explosion;
 import ru.pavel.sprite.game.MainShip;
 
 public class GameScreen extends BaseScreen {
@@ -23,6 +25,7 @@ public class GameScreen extends BaseScreen {
     private MainShip mainShip;
 
     private BulletPool bulletPool;
+    private ExplosionPool explosionPool;
 
     @Override
     public void show() {
@@ -35,6 +38,7 @@ public class GameScreen extends BaseScreen {
             star[i] = new Star(atlas);
         }
         bulletPool = new BulletPool();
+        explosionPool = new ExplosionPool(atlas);
         mainShip = new MainShip(atlas, bulletPool);
     }
 
@@ -52,10 +56,12 @@ public class GameScreen extends BaseScreen {
         }
         mainShip.update(delta);
         bulletPool.updateActiveSprites(delta);
+        explosionPool.updateActiveSprites(delta);
     }
 
     public void deleteAllDestroyed() {
         bulletPool.freeAllDestroyedActiveSprites();
+        explosionPool.freeAllDestroyedActiveSprites();
     }
 
     public void draw() {
@@ -68,6 +74,7 @@ public class GameScreen extends BaseScreen {
         }
         mainShip.draw(batch);
         bulletPool.drawActiveSprites(batch);
+        explosionPool.drawActiveSprites(batch);
         batch.end();
     }
 
@@ -86,6 +93,7 @@ public class GameScreen extends BaseScreen {
         bg.dispose();
         atlas.dispose();
         bulletPool.dispose();
+        explosionPool.dispose();
         mainShip.dispose();
         super.dispose();
     }
@@ -104,6 +112,8 @@ public class GameScreen extends BaseScreen {
 
     @Override
     public boolean touchDown(Vector2 touch, int pointer) {
+        Explosion explosion = explosionPool.obtain();
+        explosion.set(0.15f, touch);
         mainShip.touchDown(touch, pointer);
         return super.touchDown(touch, pointer);
     }
