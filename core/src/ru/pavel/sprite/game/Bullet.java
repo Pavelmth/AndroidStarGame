@@ -9,7 +9,7 @@ import ru.pavel.math.Rect;
 public class Bullet extends Sprite {
 
     private Rect worldBounds;
-    private Vector2 v = new Vector2();
+    private Vector2 speed = new Vector2();
     private int damage;
     private Object owner;
 
@@ -19,7 +19,7 @@ public class Bullet extends Sprite {
 
     @Override
     public void update(float delta) {
-        pos.mulAdd(v, delta);
+        pos.mulAdd(speed, delta);
         if (isOutside(worldBounds)) {
             destroy();
         }
@@ -29,7 +29,7 @@ public class Bullet extends Sprite {
             Object owner,
             TextureRegion region,
             Vector2 pos0,
-            Vector2 v0,
+            Vector2 speed0,
             float height,
             Rect worldBounds,
             int damage
@@ -37,7 +37,7 @@ public class Bullet extends Sprite {
         this.owner = owner;
         this.regions[0] = region;
         this.pos.set(pos0);
-        this.v.set(v0);
+        this.speed.set(speed0);
         setHeightProportion(height);
         this.worldBounds = worldBounds;
         this.damage = damage;

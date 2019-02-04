@@ -45,9 +45,10 @@ public class GameScreen extends BaseScreen {
         }
         bulletPool = new BulletPool();
         explosionPool = new ExplosionPool(atlas);
-        enemyPool = new EnemyPool(bulletPool);
+        enemyPool = new EnemyPool(bulletPool, worldBounds);
         mainShip = new MainShip(atlas, bulletPool);
 
+        //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ random deeper
         enemyEmitter = new EnemyEmitter(enemyPool, atlas, worldBounds);
     }
 

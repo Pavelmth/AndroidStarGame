@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import ru.pavel.base.SpritesPool;
 import ru.pavel.sprite.game.Explosion;
-import ru.pavel.sprite.menu.ExitButton;
 
 public class ExplosionPool extends SpritesPool<Explosion> {
 
@@ -17,7 +16,6 @@ public class ExplosionPool extends SpritesPool<Explosion> {
     public ExplosionPool(TextureAtlas atlas) {
         this.region = atlas.findRegion("explosion");
         this.exposionSound = Gdx.audio.newSound(Gdx.files.internal("sounds/explosion.wav"));
-
     }
 
     @Override
