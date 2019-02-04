@@ -10,11 +10,14 @@ import com.badlogic.gdx.math.Vector2;
 import ru.pavel.base.BaseScreen;
 import ru.pavel.math.Rect;
 import ru.pavel.pool.BulletPool;
+import ru.pavel.pool.EnemyPool;
 import ru.pavel.pool.ExplosionPool;
 import ru.pavel.sprite.Background;
 import ru.pavel.sprite.Star;
+import ru.pavel.sprite.game.Enemy;
 import ru.pavel.sprite.game.Explosion;
 import ru.pavel.sprite.game.MainShip;
+import ru.pavel.utils.EnemyEmitter;
 
 public class GameScreen extends BaseScreen {
 
@@ -26,6 +29,9 @@ public class GameScreen extends BaseScreen {
 
     private BulletPool bulletPool;
     private ExplosionPool explosionPool;
+    private EnemyPool enemyPool;
+
+    private EnemyEmitter enemyEmitter;
 
     @Override
     public void show() {
@@ -39,7 +45,10 @@ public class GameScreen extends BaseScreen {
         }
         bulletPool = new BulletPool();
         explosionPool = new ExplosionPool(atlas);
+        enemyPool = new EnemyPool(bulletPool);
         mainShip = new MainShip(atlas, bulletPool);
+
+        enemyEmitter = new EnemyEmitter(enemyPool, atlas, worldBounds);
     }
 
     @Override
@@ -57,11 +66,14 @@ public class GameScreen extends BaseScreen {
         mainShip.update(delta);
         bulletPool.updateActiveSprites(delta);
         explosionPool.updateActiveSprites(delta);
+        enemyPool.updateActiveSprites(delta);
+        enemyEmitter.generate(delta);
     }
 
     public void deleteAllDestroyed() {
         bulletPool.freeAllDestroyedActiveSprites();
         explosionPool.freeAllDestroyedActiveSprites();
+        enemyPool.freeAllDestroyedActiveSprites();
     }
 
     public void draw() {
@@ -75,6 +87,7 @@ public class GameScreen extends BaseScreen {
         mainShip.draw(batch);
         bulletPool.drawActiveSprites(batch);
         explosionPool.drawActiveSprites(batch);
+        enemyPool.drawActiveSprites(batch);
         batch.end();
     }
 
@@ -93,6 +106,7 @@ public class GameScreen extends BaseScreen {
         bg.dispose();
         atlas.dispose();
         bulletPool.dispose();
+        enemyPool.dispose();
         explosionPool.dispose();
         mainShip.dispose();
         super.dispose();

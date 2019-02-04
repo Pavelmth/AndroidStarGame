@@ -15,7 +15,7 @@ public abstract class BaseScreen implements Screen, InputProcessor {
     protected SpriteBatch batch;
 
     private Rect screenBounds; // draw area border by pixel
-    private Rect worldBounds; // world coordinate projection border
+    protected Rect worldBounds; // world coordinate projection border
     private Rect glBounds; //default projection world border - gl
 
     private Matrix4 worldToGl;

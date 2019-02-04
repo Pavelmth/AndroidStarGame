@@ -7,32 +7,19 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
-import ru.pavel.base.Sprite;
 import ru.pavel.math.Rect;
 import ru.pavel.pool.BulletPool;
 
-public class MainShip extends Sprite {
+public class MainShip extends Ship {
 
     private static final int INVALID_POINTER = -1;
     private int leftPointer = INVALID_POINTER;
     private int rightPointer = INVALID_POINTER;
 
-    private Rect worldBounds;
-
     private final Vector2 speed0 = new Vector2(0.5f, 0);
-    private Vector2 speed = new Vector2();
 
     private boolean isPressedLeft;
     private boolean isPressedRight;
-
-    private BulletPool bulletPool;
-
-    private TextureRegion bulletRegion;
-
-    private float reloadInterval;
-    private float reloadTimer;
-
-    private Sound shootSound;
 
     public MainShip(TextureAtlas atlas, BulletPool bulletPool) {
         super(atlas.findRegion("main_ship"), 1, 2, 2);
@@ -41,12 +28,15 @@ public class MainShip extends Sprite {
         this.reloadInterval = 0.2f;
         this.shootSound = Gdx.audio.newSound(Gdx.files.internal("sounds/2576.mp3"));
         setHeightProportion(0.1f);
+        this.bulletS = new Vector2(0, 0.5f);
+        this.bulletHeight = 0.01f;
+        this.damage = 1;
+        this.health = 100;
     }
 
     @Override
     public void resize(Rect worldBounds) {
         super.resize(worldBounds);
-        this.worldBounds = worldBounds;
         setBottom(worldBounds.getBottom() + 0.05f);
     }
 
@@ -157,15 +147,5 @@ public class MainShip extends Sprite {
 
     private void stop() {
         speed.setZero();
-    }
-
-    private void shoot() {
-        shootSound.play(1.0f); // play sound
-        Bullet bullet = bulletPool.obtain();
-        bullet.set(this, bulletRegion, pos, new Vector2(0, 0.5f), 0.01f, worldBounds, 1);
-    }
-
-    public void dispose() {
-        shootSound.dispose();
     }
 }
