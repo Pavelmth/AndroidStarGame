@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 
 import ru.pavel.math.Rect;
 import ru.pavel.pool.BulletPool;
+import ru.pavel.pool.ExplosionPool;
 
 public class MainShip extends Ship {
 
@@ -21,10 +22,11 @@ public class MainShip extends Ship {
     private boolean isPressedLeft;
     private boolean isPressedRight;
 
-    public MainShip(TextureAtlas atlas, BulletPool bulletPool) {
+    public MainShip(TextureAtlas atlas, BulletPool bulletPool, ExplosionPool explosionPool) {
         super(atlas.findRegion("main_ship"), 1, 2, 2);
         this.bulletRegion = atlas.findRegion("bulletMainShip");
         this.bulletPool = bulletPool;
+        this.explosionPool = explosionPool;
         this.reloadInterval = 0.2f;
         this.shootSound = Gdx.audio.newSound(Gdx.files.internal("sounds/2576.mp3"));
         setHeightProportion(0.1f);
@@ -135,6 +137,20 @@ public class MainShip extends Ship {
             }
         }
         return super.touchUp(touch, button);
+    }
+
+    //bullet should get to center of ship
+    public boolean isBulletCollision(Rect bullet) {
+        return !(bullet.getRight() < getLeft()
+                || bullet.getLeft() > getRight()
+                || bullet.getBottom() > pos.y
+                || bullet.getTop() < getBottom());
+    }
+
+    @Override
+    public void destroy() {
+        super.destroy();
+        explosion();
     }
 
     private void moveRight() {
