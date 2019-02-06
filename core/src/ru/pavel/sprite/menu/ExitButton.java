@@ -3,9 +3,7 @@ package ru.pavel.sprite.menu;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
-import ru.pavel.base.Sprite;
 import ru.pavel.math.Rect;
-import ru.pavel.screen.MenuScreen;
 
 public class ExitButton extends ScaledTouchUpButton {
 
