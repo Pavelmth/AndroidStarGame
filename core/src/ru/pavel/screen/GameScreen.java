@@ -52,13 +52,14 @@ public class GameScreen extends BaseScreen {
         }
 
         gameOver = new GameOver(atlas);
-        newGame = new NewGame(atlas, mainShip);
+        newGame = new NewGame(atlas, this);
 
         bulletPool = new BulletPool();
         explosionPool = new ExplosionPool(atlas);
-        mainShip = new MainShip(atlas, bulletPool, explosionPool);
+        mainShip = new MainShip(atlas, bulletPool, explosionPool, worldBounds);
         enemyPool = new EnemyPool(bulletPool, worldBounds, explosionPool, mainShip);
         enemyEmitter = new EnemyEmitter(enemyPool, atlas, worldBounds);
+        startNewGame();
     }
 
     @Override
@@ -160,6 +161,7 @@ public class GameScreen extends BaseScreen {
         }
         mainShip.resize(worldBounds);
         gameOver.resize(worldBounds);
+        newGame.resize(worldBounds);
     }
 
     @Override
@@ -205,5 +207,13 @@ public class GameScreen extends BaseScreen {
             newGame.touchUp(touch, pointer);
         }
         return super.touchUp(touch, pointer);
+    }
+
+    public void startNewGame() {
+
+        mainShip.startNewGame();
+        bulletPool.freeAllActiveObjects();
+        enemyPool.freeAllActiveObjects();
+        explosionPool.freeAllActiveObjects();
     }
 }

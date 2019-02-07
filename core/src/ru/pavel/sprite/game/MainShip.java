@@ -22,7 +22,7 @@ public class MainShip extends Ship {
     private boolean isPressedLeft;
     private boolean isPressedRight;
 
-    public MainShip(TextureAtlas atlas, BulletPool bulletPool, ExplosionPool explosionPool) {
+    public MainShip(TextureAtlas atlas, BulletPool bulletPool, ExplosionPool explosionPool, Rect worldBounds) {
         super(atlas.findRegion("main_ship"), 1, 2, 2);
         this.bulletRegion = atlas.findRegion("bulletMainShip");
         this.bulletPool = bulletPool;
@@ -34,6 +34,15 @@ public class MainShip extends Ship {
         this.bulletHeight = 0.01f;
         this.damage = 1;
         this.health = 1;
+        this.worldBounds = worldBounds;
+        startNewGame();
+    }
+
+    public void startNewGame() {
+        stop();
+        pos.x = worldBounds.pos.x;
+        this.health = 1;
+        flushDestroy();
     }
 
     @Override
