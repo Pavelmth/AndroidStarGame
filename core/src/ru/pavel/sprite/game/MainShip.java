@@ -2,9 +2,7 @@ package ru.pavel.sprite.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 import ru.pavel.math.Rect;
@@ -173,4 +171,6 @@ public class MainShip extends Ship {
     private void stop() {
         speed.setZero();
     }
+
+
 }

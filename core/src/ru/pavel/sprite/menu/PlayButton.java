@@ -2,8 +2,6 @@ package ru.pavel.sprite.menu;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-
-import ru.pavel.StarGame;
 import ru.pavel.math.Rect;
 import ru.pavel.screen.GameScreen;
 

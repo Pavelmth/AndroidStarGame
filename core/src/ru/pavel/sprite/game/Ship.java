@@ -71,7 +71,10 @@ public class Ship extends Sprite {
         frame = 1;
         damageTimer = 0f;
         health -= damage;
-        if (health <= 0) destroy();
+        if (health <= 0) {
+            health = 0;
+            destroy();
+        }
     }
 
     public void dispose() {
@@ -80,5 +83,9 @@ public class Ship extends Sprite {
 
     public int getDamage() {
         return damage;
+    }
+
+    public int getHealth() {
+        return health;
     }
 }

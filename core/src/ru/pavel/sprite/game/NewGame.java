@@ -9,8 +9,6 @@ import ru.pavel.screen.GameScreen;
 import ru.pavel.sprite.menu.ScaledTouchUpButton;
 
 public class NewGame extends ScaledTouchUpButton {
-        BulletPool bulletPool;
-        EnemyPool enemyPool;
         GameScreen gameScreen;
 
     public NewGame(TextureAtlas atlas, GameScreen gameScreen) {

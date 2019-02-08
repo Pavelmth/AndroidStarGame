@@ -62,7 +62,6 @@ public abstract class BaseScreen implements Screen, InputProcessor {
 
     }
 
-
     @Override
     public void pause() {
         System.out.println("pause");
@@ -105,7 +104,6 @@ public abstract class BaseScreen implements Screen, InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-       // System.out.println("touchDown screenX = " + screenX + " screenY = " + screenY);
         touch.set(screenX,screenBounds.getHeight() - screenY).mul(screenToWorlds);
         touchDown(touch, pointer);
         return false;
@@ -118,7 +116,6 @@ public abstract class BaseScreen implements Screen, InputProcessor {
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-       // System.out.println("touchUp screenX = " + screenX + " screenY = " + screenY);
         touch.set(screenX,screenBounds.getHeight() - screenY).mul(screenToWorlds);
         touchUp(touch, pointer);
         return false;
@@ -131,7 +128,6 @@ public abstract class BaseScreen implements Screen, InputProcessor {
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-       // System.out.println("touchDragged screenX = " + screenX + " screenY = " + screenY);
         touch.set(screenX,screenBounds.getHeight() - screenY).mul(screenToWorlds);
         touchDragged(touch, pointer);
         return false;

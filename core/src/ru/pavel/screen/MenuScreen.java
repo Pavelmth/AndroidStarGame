@@ -48,12 +48,7 @@ public class MenuScreen extends BaseScreen {
 
         music.setVolume(0.3f);                 // устанавливает громкость на половину максимального объема
         music.setLooping(true);                // повторное воспроизведение, пока не будет вызван music.stop()
-//        music.stop();                          // останавливает воспроизведение
-//        music.pause();                         // приостанавливает воспроизведение
         music.play();                          // возобновляет воспроизведение
-//        boolean isPlaying = music.isPlaying(); // проверка воспроизводится ли музыка
-//        boolean isLooping = music.isLooping(); // проверка установлено ли повторение
-//        float position = music.getPosition();  // возвращает позицию воспроизведения в секундах
     }
 
     @Override

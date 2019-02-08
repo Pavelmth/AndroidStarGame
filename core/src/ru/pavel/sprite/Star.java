@@ -2,7 +2,6 @@ package ru.pavel.sprite;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
-
 import ru.pavel.base.Sprite;
 import ru.pavel.math.Rect;
 import ru.pavel.math.Rnd;

@@ -1,7 +1,6 @@
 package ru.pavel;
 
 import com.badlogic.gdx.Game;
-
 import ru.pavel.screen.MenuScreen;
 
 //public class StarGame extends ApplicationAdapter {
