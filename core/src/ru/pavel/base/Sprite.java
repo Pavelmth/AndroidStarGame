@@ -38,7 +38,7 @@ public class Sprite extends Rect {
         setWidth(height * aspect);
     }
 
-    public void resize(Rect wolldBounds) {
+    public void resize(Rect worldBounds) {
 
     }
 

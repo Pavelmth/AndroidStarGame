@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import ru.pavel.base.Sprite;
 import ru.pavel.math.Rect;
 import ru.pavel.pool.BulletPool;
+import ru.pavel.pool.ExplosionPool;
 
 public class Ship extends Sprite {
 
@@ -15,10 +16,14 @@ public class Ship extends Sprite {
     protected TextureRegion bulletRegion;
 
     protected BulletPool bulletPool;
+    protected ExplosionPool explosionPool;
     protected Vector2 speed = new Vector2();
 
     protected float reloadInterval;
     protected float reloadTimer;
+
+    private float damageInterval = 0.1f;
+    private float damageTimer = damageInterval;
 
     protected Sound shootSound;
 
@@ -37,18 +42,43 @@ public class Ship extends Sprite {
     }
 
     @Override
+    public void update(float delta) {
+        super.update(delta);
+        damageTimer += delta;
+        if (damageTimer >= damageInterval) {
+            frame = 0;
+        }
+    }
+
+    @Override
     public void resize(Rect worldBounds) {
         super.resize(worldBounds);
         this.worldBounds = worldBounds;
     }
 
     public void shoot() {
-        shootSound.play(1.0f); // play sound
+        shootSound.play(0.1f); // play sound
         Bullet bullet = bulletPool.obtain();
         bullet.set(this, bulletRegion, pos, bulletS, bulletHeight, worldBounds, damage);
     }
 
+    public void explosion() {
+        Explosion explosion = explosionPool.obtain();
+        explosion.set(getHeight(), pos);
+    }
+
+    public void damage(int damage) {
+        frame = 1;
+        damageTimer = 0f;
+        health -= damage;
+        if (health <= 0) destroy();
+    }
+
     public void dispose() {
         shootSound.dispose();
+    }
+
+    public int getDamage() {
+        return damage;
     }
 }
