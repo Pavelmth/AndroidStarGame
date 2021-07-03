@@ -1,7 +1,6 @@
 package ru.pavel.sprite;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-
 import ru.pavel.base.Sprite;
 import ru.pavel.math.Rect;
 
